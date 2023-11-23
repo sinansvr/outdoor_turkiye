@@ -15,6 +15,10 @@ require("express-async-errors")
 //JSON data
 app.use(express.json())
 
+//DB Connection
+const {dbConnection} = require("./src/configs/dbConnection")
+dbConnection()
+
 
 //Home Page
 app.all("/",(req,res)=>{
