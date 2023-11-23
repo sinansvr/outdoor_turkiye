@@ -29,4 +29,4 @@ app.all("/",(req,res)=>{
 app.use(require("./src/middlewares/errorHandler"))
 
 //Listening PORT
-app.listen(PORT,()=>console.log(`Running at:${HOST}:${PORT}`))
+app.listen(PORT,()=>console.log(`Running at: http://${HOST}:${PORT}`))
