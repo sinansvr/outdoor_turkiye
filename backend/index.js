@@ -12,12 +12,15 @@ const PORT = process.env.PORT || 8000;
 //async-errors
 require("express-async-errors")
 
-//JSON data
-app.use(express.json())
-
 //DB Connection
 const {dbConnection} = require("./src/configs/dbConnection")
 dbConnection()
+
+//JSON data
+app.use(express.json())
+
+app.use(require('./src/middlewares/findSearchSortPage'))
+
 
 
 //Home Page
@@ -29,6 +32,16 @@ app.all("/",(req,res)=>{
     })
 
 })
+
+//Router
+app.use(require("./src/routes"))
+
+//Middlewares
+
+// app.use(require("./src/middlewares/findSearchSortPage"))
+
+
+
 //errorHandler
 app.use(require("./src/middlewares/errorHandler"))
 

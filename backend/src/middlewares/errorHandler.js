@@ -1,6 +1,6 @@
 module.exports=(err,req,res,next)=>{
 
-    res.status(errorStatusCode=res.errorStatusCode).send({
+    return res.status(errorStatusCode=res.errorStatusCode ||500 ).send({
         error:true,
         message:err.message,
         cause:err.cause,

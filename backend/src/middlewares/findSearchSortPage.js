@@ -1,11 +1,18 @@
 "use strict"
-
+/* -------------------------------------------------------
+    NODEJS EXPRESS | CLARUSWAY FullStack Team
+------------------------------------------------------- */
+// app.use(findSearchSortPage):
 
 module.exports = (req, res, next) => {  
+// Searching & Sorting & Pagination:  
 
-    let search = req.query?.search || {}
+    // SEARCHING: URL?search[key1]=value1&search[key2]=value2
+    const search = req.query?.search || {}
     for (let key in search) search[key] = { $regex: search[key], $options: 'i' }
-    
+
+    // Cancelled -> SORTING: URL?sort[key1]=1&sort[key2]=-1 (1:ASC, -1:DESC)
+    // mongoose=^8.0 -> SORTING: URL?sort[key1]=asc&sort[key2]=desc (asc: A->Z - desc: Z->A)
     const sort = req.query?.sort || {}
 
     // PAGINATION: URL?page=1&limit=10
@@ -24,9 +31,7 @@ module.exports = (req, res, next) => {
 
         const filtersAndSearch = { ...filters, ...search  }
 
-        // return await Model.find(filtersAndSearch).sort(sort).skip(skip).limit(limit).populate(populate)
-        // FOR REACT PROJECT:
-        return await Model.find(filtersAndSearch).populate(populate)
+        return await Model.find(filtersAndSearch).sort(sort).skip(skip).limit(limit).populate(populate)
     }
 
     // Details:
@@ -34,7 +39,7 @@ module.exports = (req, res, next) => {
 
         const filtersAndSearch = { ...filters, ...search }
 
-        const dataCount = await Model.count(filtersAndSearch)
+        const dataCount = await Model.find(filtersAndSearch).count()
 
         let details = {
             search,

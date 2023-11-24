@@ -2,7 +2,7 @@
 
 const {mongoose}=require("../configs/dbConnection")
 const {isEmail} = require("validator")
-const {passwordEncrypt}=require("../helpers/passwordEncrypt")
+const passwordEncrypt=require("../helpers/passwordEncrypt")
 
 const UserSchema= new mongoose.Schema({
     username: {
@@ -65,8 +65,6 @@ UserSchema.pre(['save', 'updateOne'], function (next) {
         next()
     }
 })
-UserSchema.pre('init', function (data) {
-    data.id = data._id
-})
+
 
 module.exports=mongoose.model("User",UserSchema)
