@@ -4,26 +4,21 @@ const Token = require("../models/token")
 
 module.exports =  {
     list: async (req, res) => {
-        /*
-            #swagger.ignore = true
-        */
-
+       
         const data = await res.getModelList(Token)
 
-        // res.status(200).send({
-        //     error: false,
-        //     details: await res.getModelListDetails(Token),
-        //     data
-        // })
+        res.status(200).send({
+            error: false,
+            details: await res.getModelListDetails(Token),
+            data
+        })
         
         // FOR REACT PROJECT:
-        res.status(200).send(data)
+        // res.status(200).send(data)
     },
 
     create: async (req, res) => {
-        /*
-            #swagger.ignore = true
-        */
+        
 
         const data = await Token.create(req.body)
 
@@ -34,9 +29,7 @@ module.exports =  {
     },
 
     read: async (req, res) => {
-        /*
-            #swagger.ignore = true
-        */
+        
 
         const data = await Token.findOne({ _id: req.params.id })
 
@@ -47,9 +40,7 @@ module.exports =  {
     },
 
     update: async (req, res) => {
-        /*
-            #swagger.ignore = true
-        */
+       
 
         const data = await Token.updateOne({ _id: req.params.id }, req.body, { runValidators: true })
 
@@ -61,9 +52,7 @@ module.exports =  {
     },
 
     delete: async (req, res) => {
-        /*
-            #swagger.ignore = true
-        */
+      
 
         const data = await Token.deleteOne({ _id: req.params.id })
 
