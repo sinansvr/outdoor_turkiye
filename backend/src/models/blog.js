@@ -22,8 +22,8 @@
   "views": 100
 } */
 
-const { default: mongoose } = require("mongoose")
-const {mogoose} = require("../configs/dbConnection")
+const {mongoose } = require("mongoose")
+// const {mongoose} = require("../configs/dbConnection")
 
 const BlogSchema = new mongoose.Schema({
     title: {
@@ -57,8 +57,7 @@ const BlogSchema = new mongoose.Schema({
     visitors: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-        
+            ref: 'User',        
         }
     ],
     comments: [

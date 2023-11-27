@@ -19,8 +19,11 @@ dbConnection()
 //JSON data
 app.use(express.json())
 
-app.use(require('./src/middlewares/findSearchSortPage'))
+//Authentication
+app.use(require("./src/middlewares/authentication"))
 
+//Find/Pagination
+app.use(require('./src/middlewares/findSearchSortPage'))
 
 
 //Home Page
