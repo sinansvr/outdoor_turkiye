@@ -13,6 +13,15 @@ const passwordEncrypt=require("../helpers/passwordEncrypt")
     "lastName": "admin",
     "isActive": true,
     "isAdmin": true
+},
+{
+    "username": "test1",
+    "password": "aA*123456",
+    "email": "test1@site.com",
+    "firstName": "test1",
+    "lastName": "test1",
+    "isActive": true,
+    "isAdmin": false
 }
 */
 

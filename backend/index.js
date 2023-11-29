@@ -20,7 +20,7 @@ dbConnection()
 app.use(express.json())
 
 //Authentication
-app.use(require("./src/middlewares/authentication"))
+// app.use(require("./src/middlewares/authentication"))
 
 //Find/Pagination
 app.use(require('./src/middlewares/findSearchSortPage'))
