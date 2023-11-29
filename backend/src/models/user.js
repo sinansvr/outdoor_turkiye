@@ -4,6 +4,18 @@ const {mongoose}=require("../configs/dbConnection")
 const {isEmail} = require("validator")
 const passwordEncrypt=require("../helpers/passwordEncrypt")
 
+/*sample 
+{
+    "username": "admin",
+    "password": "aA*123456",
+    "email": "admin@site.com",
+    "firstName": "admin",
+    "lastName": "admin",
+    "isActive": true,
+    "isAdmin": true
+}
+*/
+
 const UserSchema= new mongoose.Schema({
     username: {
         type: String,
@@ -46,6 +58,10 @@ const UserSchema= new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+
+    },isActive: {
+        type: Boolean,
+        default: true
     },
 },{collection:"users",timestamps:true})
 

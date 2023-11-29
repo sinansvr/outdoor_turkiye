@@ -10,4 +10,6 @@ module.exports= async (req,res,next)=>{
         const tokenData = await findOne({token}).populate('userId')
         req.user=tokenData ? tokenData.userId : undefined
     }
+
+    next()
 }
