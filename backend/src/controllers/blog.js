@@ -4,7 +4,10 @@ const Blog = require("../models/blog");
 
 module.exports = {
   list: async (req, res) => {
-    const data = await res.getModelList(Blog);
+
+    let filters={status:published}
+    
+    const data = await res.getModelList(Blog,filters);
 
     res.status(200).send({
       error: false,
