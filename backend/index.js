@@ -19,8 +19,6 @@ dbConnection()
 //JSON data
 app.use(express.json())
 
-//Authentication
-// app.use(require("./src/middlewares/authentication"))
 
 //Find/Pagination
 app.use(require('./src/middlewares/findSearchSortPage'))
@@ -36,13 +34,14 @@ app.all("/",(req,res)=>{
 
 })
 
+//Authentication
+app.use(require("./src/middlewares/authentication"))
+
 //Router
 app.use(require("./src/routes"))
 
 //Middlewares
-
-// app.use(require("./src/middlewares/findSearchSortPage"))
-
+app.use(require("./src/middlewares/findSearchSortPage"))
 
 
 //errorHandler

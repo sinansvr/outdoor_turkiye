@@ -6,13 +6,14 @@ const router = require('express').Router()
 
 // const { isAdmin } = require('../middlewares/permissions')
 const token = require('../controllers/token')
+const permission = require("../middlewares/permissions")
 
 // URL: /tokens
 
 // router.use(isAdmin)
 
 router.route('/')
-    .get(token.list)
+    .get(permission.isAdmin, token.list)
     .post(token.create)
 
 router.route('/:id')

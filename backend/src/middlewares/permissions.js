@@ -2,8 +2,10 @@
 
 module.exports={
     isLogin:(req,res,next)=>{
+
         if(process.env.NODE_ENV=="develpoment") return next()
-        if(req?.user){
+
+        if(req?.user && req?.user.isActive){
             next()
         } else{
             res.errorSatatusCode=403;

@@ -3,18 +3,20 @@
 const router = require('express').Router()
 
 const blog = require('../controllers/blog')
+const permission = require("../middlewares/permissions")
+
 
 // URL: /blogs
 
 router.route('/')
     .get(blog.list)
-    .post(blog.create)
+    .post(permission.isLogin, blog.create)
 
 router.route('/:id')
-    .get(blog.read)
-    .put(blog.update)
-    .patch(blog.update)
-    .delete(blog.delete)
+    .get(permission.isLogin, blog.read)
+    .put(permission.isLogin, blog.update)
+    .patch(permission.isLogin ,blog.update)
+    .delete(permission.isLogin ,blog.delete)
 
 
 module.exports = router

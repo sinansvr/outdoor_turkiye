@@ -17,6 +17,9 @@ module.exports = {
   // register
   create: async (req, res) => {
 
+    //disallow to be admin
+    req.body.isAdmin = false
+
     //create new user
     const data = await User.create(req.body);
 
@@ -29,12 +32,17 @@ module.exports = {
     res.status(201).send({
       error: false,
       data,
-      tokenData
+      token:tokenData.token
     });
   },
 
   read: async (req, res) => {
-    const data = await User.findOne({ _id: req.params.id });
+
+    //only self data
+    let filters={}
+    if(!req.user?.isAdmin) filters={_id : req.user._id}
+
+    const data = await User.findOne({ _id: req.params.id, ...filters });
 
     res.status(200).send({
       error: false,
@@ -43,7 +51,17 @@ module.exports = {
   },
 
   update: async (req, res) => {
-    const data = await User.updateOne({ _id: req.params.id }, req.body, {
+    
+    //only self data
+    let filters={}
+    if(req.user.isAdmin){
+      filters={_id: req.user._id}
+
+      //disallow to be admin
+      req.body.isAdmin=false;
+    }    
+
+    const data = await User.updateOne({ _id: req.params.id, ...filters }, req.body, {
       runValidators: true,
     });
 
