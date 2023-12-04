@@ -4,10 +4,8 @@ const Blog = require("../models/blog");
 
 module.exports = {
   list: async (req, res) => {
-
-    let filters={status:published}
     
-    const data = await res.getModelList(Blog,filters);
+    const data = await res.getModelList(Blog);
 
     res.status(200).send({
       error: false,
@@ -26,7 +24,18 @@ module.exports = {
   },
 
   read: async (req, res) => {
-    const data = await Blog.findOne({ _id: req.params.id });
+    let data = await Blog.findOne({ _id: req.params.id });
+    console.log(data.visitors)
+
+    data.visitors.push(req.user.userId)
+
+    console.log(data.visitors)
+
+    
+    
+    // await Blog.updateOne({ _id: req.params.id })
+    // console.log("visitors",data.visitors)
+
 
     res.status(200).send({
       error: false,
@@ -35,7 +44,7 @@ module.exports = {
   },
 
   update: async (req, res) => {
-    const data = await Blog.updateOne({ _id: req.params.id });
+    const data = await Blog.updateOne({ _id: req.params.id },req.body);
 
     res.status(202).send({
       error: false,

@@ -29,7 +29,8 @@ const BlogSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        unique:[true, "The blog title has already used!"]
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
