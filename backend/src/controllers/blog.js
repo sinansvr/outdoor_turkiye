@@ -4,7 +4,6 @@ const Blog = require("../models/blog");
 
 module.exports = {
   list: async (req, res) => {
-    
     const data = await res.getModelList(Blog);
 
     res.status(200).send({
@@ -24,18 +23,17 @@ module.exports = {
   },
 
   read: async (req, res) => {
+    const result = await Blog.updateOne(
+      { _id: req.params.id, visitors: { $ne: req.user.userId } }, // Belirtilen kullanıcının visitors dizisinde olup olmadığını kontrol et
+      {
+        $addToSet: { visitors: req.user.userId }, // Eğer yoksa, visitors dizisine ekle
+        $inc: { views: 1 }, // Views sayısını bir artır
+      }
+    );
     let data = await Blog.findOne({ _id: req.params.id });
-    console.log(data.visitors)
 
-    data.visitors.push(req.user.userId)
-
-    console.log(data.visitors)
-
-    
-    
     // await Blog.updateOne({ _id: req.params.id })
     // console.log("visitors",data.visitors)
-
 
     res.status(200).send({
       error: false,
@@ -44,7 +42,7 @@ module.exports = {
   },
 
   update: async (req, res) => {
-    const data = await Blog.updateOne({ _id: req.params.id },req.body);
+    const data = await Blog.updateOne({ _id: req.params.id }, req.body);
 
     res.status(202).send({
       error: false,
