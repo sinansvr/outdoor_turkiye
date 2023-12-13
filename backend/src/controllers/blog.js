@@ -24,21 +24,25 @@ module.exports = {
 
   read: async (req, res) => {
 
-    let visitorsIdData = await Blog.findOne(req.params.id)
+    // let visitorsIdData = await Blog.findOne({_id: req.params.id})
 
-    const result = await Blog.updateOne(
+    // const result = await Blog.updateOne(
       
      
-      { _id: req.params.id, visitors: { $ne: req.user.userId } }, // Belirtilen kullanıcının visitors dizisinde olup olmadığını kontrol et
-      {
-        $addToSet: { visitors: req.user.userId }, // Eğer yoksa, visitors dizisine ekle
-        $inc: { views: 1 }, // Views sayısını bir artır
-      }
-    );
+    //   { _id: req.params.id, visitors: { $ne: req.user.userId } }, // Belirtilen kullanıcının visitors dizisinde olup olmadığını kontrol et
+    //   {
+    //     $addToSet: { visitors: req.user.userId }, // Eğer yoksa, visitors dizisine ekle
+    //     $inc: { views: 1 }, // Views sayısını bir artır
+    //   }
+    // );
     let data = await Blog.findOne({ _id: req.params.id });
-
-    // await Blog.updateOne({ _id: req.params.id })
-    // console.log("visitors",data.visitors)
+       
+    if(!data.visitors.includes(req.params.id)){
+      data.visitors.push((req.params.id))
+      data.views +=1;
+      await Blog.updateOne({ _id: req.params.id }, {$set : {visitors:data.visitors, views:data.views}})
+    }
+       
 
     res.status(200).send({
       error: false,
