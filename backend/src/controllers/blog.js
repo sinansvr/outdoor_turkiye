@@ -23,7 +23,12 @@ module.exports = {
   },
 
   read: async (req, res) => {
+
+    let visitorsIdData = await Blog.findOne(req.params.id)
+
     const result = await Blog.updateOne(
+      
+     
       { _id: req.params.id, visitors: { $ne: req.user.userId } }, // Belirtilen kullanıcının visitors dizisinde olup olmadığını kontrol et
       {
         $addToSet: { visitors: req.user.userId }, // Eğer yoksa, visitors dizisine ekle
