@@ -81,13 +81,42 @@ module.exports = {
       req.user.isAdmin
     ) {
       const data = await Blog.deleteOne({ _id: req.params.id });
+
+      res.status(data.deletedCount ? 204 : 404).send({
+        error: !data.deletedCount,
+        data,
+      });
+
     } else {
-      throw new Error("You can't delete the blog!");
+      
+      res.status(403).send({
+        error: true,
+        message: "You can't delete the blog!",
+      });
     }
 
-    res.status(data.deletedCount ? 204 : 404).send({
-      error: !data.deletedCount,
+  },
+
+  like: async (req, res) => {
+    
+    const data= await Blog.findOne({_id: req.params.id})
+
+    
+
+    const islikedBefore = data.likes.includes(req?.user?._id.toString())
+
+    if(islikedBefore){
+      data.likes = data.likes.filters((id)=>id !==req.user._id)
+    }else{
+      data.likes.push(req?.user?._id.toString())
+    }
+
+    console.log("likes :",data.likes)
+
+    res.status(202).send({
+      error: false,
       data,
+      new: await Blog.findOne({ _id: req?.params.id }),
     });
   },
 };

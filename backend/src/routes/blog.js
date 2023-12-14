@@ -18,5 +18,6 @@ router.route('/:id')
     .patch(permission.isLogin ,blog.update)
     .delete(permission.isLogin ,blog.delete)
 
+router.route('/like/:id').put(permission.isLogin, blog.like)
 
 module.exports = router
