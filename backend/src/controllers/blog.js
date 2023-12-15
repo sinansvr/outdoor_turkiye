@@ -99,23 +99,29 @@ module.exports = {
 
   like: async (req, res) => {
     
-    const data= await Blog.findOne({_id: req.params.id})
-
-    
+    const data= await Blog.findOne({_id: req.params.id})   
 
     const islikedBefore = data.likes.includes(req?.user?._id.toString())
 
     if(islikedBefore){
-      data.likes = data.likes.filters((id)=>id !==req.user._id)
+      data.likes = data.likes.filter((id)=>id.toString() !==req.user._id.toString())
     }else{
       data.likes.push(req?.user?._id.toString())
     }
+
+    await Blog.updateOne(
+      { _id: req?.params.id },
+      { $set: { likes: data.likes} }
+    );
+
+    const totalLikes=data.likes.length;
 
     console.log("likes :",data.likes)
 
     res.status(202).send({
       error: false,
       data,
+      totalLikes,
       new: await Blog.findOne({ _id: req?.params.id }),
     });
   },
