@@ -63,7 +63,7 @@ const BlogSchema = new mongoose.Schema({
     ],
     comments: [
         {
-            text: String,
+            text: {type:String,required:true},
             user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
         }
     ],

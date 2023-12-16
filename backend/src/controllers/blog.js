@@ -24,7 +24,6 @@ module.exports = {
   },
 
   create: async (req, res) => {
-
     //add user id to author
     const data = await Blog.create({ ...req.body, author: req.user._id });
 
@@ -86,37 +85,38 @@ module.exports = {
         error: !data.deletedCount,
         data,
       });
-
     } else {
-      
       res.status(403).send({
         error: true,
         message: "You can't delete the blog!",
       });
     }
-
   },
 
   like: async (req, res) => {
-    
-    const data= await Blog.findOne({_id: req.params.id})   
+    const data = await Blog.findOne({ _id: req.params.id });
 
-    const islikedBefore = data.likes.includes(req?.user?._id.toString())
-
-    if(islikedBefore){
-      data.likes = data.likes.filter((id)=>id.toString() !==req.user._id.toString())
-    }else{
-      data.likes.push(req?.user?._id.toString())
+    const islikedBefore = data.likes.includes(req?.user?._id.toString());
+    //check likes, add or remove
+    if (islikedBefore) {
+      data.likes = data.likes.filter(
+        (id) => id.toString() !== req.user._id.toString()
+      );
+    } else {
+      data.likes.push(req?.user?._id.toString());
     }
 
-    await Blog.updateOne(
-      { _id: req?.params.id },
-      { $set: { likes: data.likes} }
-    );
+    //update likes
+    await data.save();
 
-    const totalLikes=data.likes.length;
+    //update likes alternative method
+    // await Blog.updateOne(
+    //   { _id: req?.params.id },
+    //   { $set: { likes: data.likes} }
+    // );
 
-    console.log("likes :",data.likes)
+    // count the likes
+    const totalLikes = data.likes.length;
 
     res.status(202).send({
       error: false,
@@ -124,5 +124,35 @@ module.exports = {
       totalLikes,
       new: await Blog.findOne({ _id: req?.params.id }),
     });
+  },
+
+  addComment: async (req, res) => {
+    const data = await Blog.findOne({ _id: req?.params.id });
+
+    data.comments.push(req.body);
+
+    await data.save();
+
+    res.status(201).send({
+      error: false,
+      data,
+    });
+  },
+  deleteComment: async (req, res) => {
+    const data = await Blog.findOne({ _id: req?.params.id });
+
+    const blogId = req.params.id;
+    const commentId = req.params.commentId;
+
+    // console.log("Blog ID:", blogId);
+    // console.log("Comment ID:", commentId);
+    
+
+    const deletedComment = data.comments.find(comment => comment._id.toString() === commentId && comment.user.toString() === req.user._id);
+
+    // console.log(comment.user.toString())
+    console.log(req.user._id)
+
+    res.status(204).send("silindi");
   },
 };

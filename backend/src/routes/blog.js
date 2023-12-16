@@ -18,6 +18,14 @@ router.route('/:id')
     .patch(permission.isLogin ,blog.update)
     .delete(permission.isLogin ,blog.delete)
 
-router.route('/like/:id').put(permission.isLogin, blog.like)
+// Likes
+router.route('/:id/like').put(permission.isLogin, blog.like)
+
+// Add Comment
+router.route('/:id/comments').post(permission.isLogin, blog.addComment);
+
+//  Delete Comment
+router.route('/:id/comments/:commentId').delete(permission.isLogin, blog.deleteComment);
+
 
 module.exports = router
