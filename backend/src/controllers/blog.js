@@ -141,27 +141,19 @@ module.exports = {
   deleteComment: async (req, res) => {
     const data = await Blog.findOne({ _id: req?.params.id });
 
-    const blogId = req.params.id; // blogId comes from route
+    // const blogId = req.params.id; // blogId comes from route
     const commentId = req.params.commentId; // commentId comes from route
-
-    console.log("commentId:", commentId);
-    console.log("req.user._id:", req.user._id);
-    console.log("Blog data:",data)
-    
+   
     //find the comment want to delete
     const deletedComment = data.comments.find((comment) =>comment._id.toString() === commentId &&comment.user.toString() === req.user._id.toString());
-
-    console.log("deletedComment:", deletedComment);
-
+    
     if (deletedComment) {
       const updatedComments = data.comments.filter((comment) => comment._id.toString() !== commentId);
       data.comments = updatedComments;
 
       // update blog comments data
       await data.save()
-      
-      console.log("Updated Comments:", updatedComments);
-
+     
       res.status(204).send("silindi");
     } else{
       res.errorSatatusCode=403;
