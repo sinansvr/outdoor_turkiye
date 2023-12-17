@@ -141,18 +141,27 @@ module.exports = {
   deleteComment: async (req, res) => {
     const data = await Blog.findOne({ _id: req?.params.id });
 
-    const blogId = req.params.id;
-    const commentId = req.params.commentId;
+    const blogId = req.params.id; // blogId comes from route
+    const commentId = req.params.commentId; // commentId comes from route
 
     // console.log("Blog ID:", blogId);
     // console.log("Comment ID:", commentId);
-    
 
-    const deletedComment = data.comments.find(comment => comment._id.toString() === commentId && comment.user.toString() === req.user._id);
+    const deletedComment = data.comments.find(
+      (comment) =>
+        comment._id.toString() === commentId &&
+        comment.user.toString() === req.user._id
+    );
 
-    // console.log(comment.user.toString())
-    console.log(req.user._id)
+    if (deletedComment) {
+      const updatedComments = data.comments.filter((comment) => comment._id.toString() !== commentIdToDelete
+      );
+      data.comments = updatedComments;
 
-    res.status(204).send("silindi");
+      // console.log(comment.user.toString())
+      console.log(req.user._id);
+
+      res.status(204).send("silindi");
+    }
   },
 };
