@@ -143,25 +143,21 @@ module.exports = {
 
     const blogId = req.params.id; // blogId comes from route
     const commentId = req.params.commentId; // commentId comes from route
-
-    // console.log("Blog ID:", blogId);
-    // console.log("Comment ID:", commentId);
-
-    const deletedComment = data.comments.find(
-      (comment) =>
-        comment._id.toString() === commentId &&
-        comment.user.toString() === req.user._id
-    );
+    
+    //find the comment want to delete
+    const deletedComment = data.comments.find((comment) =>comment._id.toString() === commentId &&comment.user.toString() === req.user._id);
 
     if (deletedComment) {
-      const updatedComments = data.comments.filter((comment) => comment._id.toString() !== commentIdToDelete
-      );
+      const updatedComments = data.comments.filter((comment) => comment._id.toString() !== commentIdToDelete);
       data.comments = updatedComments;
 
-      // console.log(comment.user.toString())
-      console.log(req.user._id);
-
+      // update blog comments data
+      await data.save()
+      
       res.status(204).send("silindi");
+    } else{
+      res.errorSatatusCode=403;
+     throw new Error("You can not delete the comment!")
     }
   },
 };
