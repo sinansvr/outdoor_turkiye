@@ -34,7 +34,7 @@ module.exports = {
             #swagger.parameters['body'] = {
                 in: 'body',
                 required: true,
-                schema: { $ref: '#/definitions/Category' }
+                schema: { "name": "category name" }
             }
     */
     const data = await Category.create(req.body);
@@ -67,7 +67,7 @@ module.exports = {
             #swagger.parameters['body'] = {
                 in: 'body',
                 required: true,
-                schema: { $ref: '#/definitions/Category' }
+                schema: { "name": " new category name"  }
             }
     */
     const data = await Category.updateOne({ _id: req.params.id });

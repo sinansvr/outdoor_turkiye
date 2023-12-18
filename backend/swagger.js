@@ -20,20 +20,19 @@ const document = {
   consumes: ["application/json"],
   produces: ["application/json"],
   securityDefinitions: {
-    Token: {
-      type: "apiKey",
-      in: "header",
-      name: "Authorization",
-      description:
-        "Simple Token Authentication * Example: <b>Token ...tokenKey...</b>",
-    },
-  },
-  security: [{ Token: [] }],
+		Token: {
+			type: 'apiKey',
+			in: 'header',
+			name: 'Authorization',
+			description: 'SimpleToken Auth * Example: <b>Token <i>...tokenKey...<i></b>'
+		},
+	},
+	security: [{ Token: true }],
 	definition: {
 		// Models:
 		"User": require('./src/models/user').schema.obj,
 		"Category": require('./src/models/category').schema.obj,
-		"Blog": require('./src/models/blog').schema.obj,
+		"Blog": require('./src/models/blog').schema.obj
 		
 	}
 

@@ -24,7 +24,7 @@
       "type": "apiKey",
       "in": "header",
       "name": "Authorization",
-      "description": "Simple Token Authentication * Example: <b>Token ...tokenKey...</b>"
+      "description": "SimpleToken Auth * Example: <b>Token <i>...tokenKey...<i></b>"
     }
   },
   "consumes": [
@@ -61,29 +61,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "type": "string",
-                  "example": "test"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "1234"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "test@site.com"
-                },
-                "isActive": {
-                  "type": "boolean",
-                  "example": true
-                },
-                "isAdmin": {
-                  "type": "boolean",
-                  "example": false
-                }
-              }
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -133,29 +111,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "type": "string",
-                  "example": "test"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "1234"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "test@site.com"
-                },
-                "isActive": {
-                  "type": "boolean",
-                  "example": true
-                },
-                "isAdmin": {
-                  "type": "boolean",
-                  "example": false
-                }
-              }
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -206,29 +162,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "username": {
-                  "type": "string",
-                  "example": "test"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "1234"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "test@site.com"
-                },
-                "isActive": {
-                  "type": "boolean",
-                  "example": true
-                },
-                "isAdmin": {
-                  "type": "boolean",
-                  "example": false
-                }
-              }
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -312,7 +246,13 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Category"
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "category name"
+                }
+              }
             }
           }
         ],
@@ -362,7 +302,13 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Category"
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": " new category name"
+                }
+              }
             }
           }
         ],
@@ -413,7 +359,13 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Category"
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": " new category name"
+                }
+              }
             }
           }
         ],
@@ -558,6 +510,10 @@
         }
       },
       "delete": {
+        "tags": [
+          "Blogs"
+        ],
+        "summary": "Delete Blog",
         "description": "",
         "parameters": [
           {
@@ -636,6 +592,10 @@
     },
     "/blogs/{id}/like": {
       "put": {
+        "tags": [
+          "Like"
+        ],
+        "summary": "Like or Remove Like Blog",
         "description": "",
         "parameters": [
           {
@@ -654,6 +614,10 @@
     },
     "/blogs/{id}/comments": {
       "post": {
+        "tags": [
+          "Blog Comment"
+        ],
+        "summary": "Add Comment",
         "description": "",
         "parameters": [
           {
@@ -661,6 +625,20 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "example": "new title"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -672,6 +650,10 @@
     },
     "/blogs/{id}/comments/{commentId}": {
       "delete": {
+        "tags": [
+          "Blog Comment"
+        ],
+        "summary": "Delete Comment",
         "description": "",
         "parameters": [
           {
@@ -1062,7 +1044,7 @@
   },
   "security": [
     {
-      "Token": []
+      "Token": true
     }
   ]
 }

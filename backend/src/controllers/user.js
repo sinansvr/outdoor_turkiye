@@ -35,13 +35,9 @@ module.exports = {
             #swagger.summary = "Create User"
             #swagger.parameters['body'] = {
                 in: 'body',
-                required: true,
+                required: 'true',
                 schema: {
-                    "username": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-                    "isActive": true,
-                    "isAdmin": false,
+                    $ref: '#/definitions/User'
                 }
             }
     */
@@ -91,13 +87,9 @@ module.exports = {
             #swagger.summary = "Update User"
             #swagger.parameters['body'] = {
                 in: 'body',
-                required: true,
+                required: 'true',
                 schema: {
-                    "username": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-                    "isActive": true,
-                    "isAdmin": false,
+                    $ref: '#/definitions/User'
                 }
             }
     */

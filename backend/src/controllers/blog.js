@@ -195,9 +195,29 @@ module.exports = {
   },
 
   addComment: async (req, res) => {
+
+    /*
+            #swagger.tags = ["Blog Comment"]
+            #swagger.summary = "Add Comment"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {                   
+                    "text": "new title",                                     
+                }
+            }
+    */
+
+
     const data = await Blog.findOne({ _id: req?.params.id });
 
-    data.comments.push(req.body);
+    // get the user id from req.user
+    const newComment = {
+      text: req.body.text,
+      user: req.user._id, 
+    };
+
+    data.comments.push(newComment);
 
     await data.save();
 
@@ -207,6 +227,12 @@ module.exports = {
     });
   },
   deleteComment: async (req, res) => {
+
+    /*
+            #swagger.tags = ["Blog Comment"]
+            #swagger.summary = "Delete Comment"
+    */
+
     const data = await Blog.findOne({ _id: req?.params.id });
 
     // const blogId = req.params.id; // blogId comes from route
@@ -222,7 +248,7 @@ module.exports = {
       // update blog comments data
       await data.save()
      
-      res.status(204).send("silindi");
+      res.status(204).send("Comment deleted");
     } else{
       res.errorSatatusCode=403;
      throw new Error("You can not delete the comment!")
