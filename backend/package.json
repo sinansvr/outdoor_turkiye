@@ -1,14 +1,15 @@
 {
+  "title":"OutDoor Turkiye",
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "OutDoor Turkiye Blog API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Sinan Sivri",
+  "license": "BSD License",
   "dependencies": {
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
@@ -17,6 +18,7 @@
     "express-async-errors": "^3.1.1",
     "mongoose": "^8.0.1",
     "morgan": "^1.10.0",
+    "swagger-autogen": "^2.23.7",
     "validator": "^13.11.0"
   }
 }
