@@ -4,6 +4,20 @@ const Blog = require("../models/blog");
 
 module.exports = {
   list: async (req, res) => {
+
+    /*
+            #swagger.tags = ["Blogs"]
+            #swagger.summary = "List Blogs"
+            #swagger.description = `
+                You can send query with endpoint for search[], sort[], page and limit.
+                <ul> Examples:
+                    <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+                    <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
+                    <li>URL/?<b>page=2&limit=1</b></li>
+                </ul>
+            `
+    */
+
     let filters = { status: "Published" };
 
     if (req?.query?.author && req.user.username == req?.query?.author) {
@@ -24,6 +38,23 @@ module.exports = {
   },
 
   create: async (req, res) => {
+
+    /*
+            #swagger.tags = ["Blogs"]
+            #swagger.summary = "Create Blog"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: { 
+                      "title": "new blog",
+                      "category": "65611e3124e11f7fcf5f5790",
+                      "content": "content ",
+                      "image": "URL",
+                      "status": "Draft or Published"
+                    
+                }
+            }
+    */
     //add user id to author
     const data = await Blog.create({ ...req.body, author: req.user._id });
 
@@ -34,9 +65,15 @@ module.exports = {
   },
 
   read: async (req, res) => {
+
+    /*
+            #swagger.tags = ["Blogs"]
+            #swagger.summary = "Get Single Blog"
+    */
+
     let data = await Blog.findOne({ _id: req.params.id });
 
-    // save unique readers ids into visitors and inc views +1
+    // save unique readers id's into visitors and inc views +1
     if (req?.user._id && !data.visitors.includes(req?.user._id)) {
       data.visitors.push(req?.user._id.toString());
       data.views += 1;
@@ -53,6 +90,25 @@ module.exports = {
   },
 
   update: async (req, res) => {
+
+    /*
+            #swagger.tags = ["Blogs"]
+            #swagger.summary = "Update Blog"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {                   
+                    "title": "new title",
+                    "category": "65611e3124e11f7fcf5f5790",
+                    "content": "new content",
+                    "image": "URL",
+                    "author": "65611e1324e11f7fcf5f578a",
+                    "status": "Draft or Published"
+                  
+                }
+            }
+    */
+
     const theBlog = await Blog.findOne({ _id: req.params.id });
 
     //only blog owner update
@@ -70,6 +126,12 @@ module.exports = {
   },
 
   delete: async (req, res) => {
+
+    /*
+            #swagger.tags = ["Blogs"]
+            #swagger.summary = "Delete Blog"
+    */
+
     const theBlog = await Blog.findOne({ _id: req.params.id });
 
     console.log(theBlog.author.toString(), req?.user._id.toString());
@@ -94,6 +156,12 @@ module.exports = {
   },
 
   like: async (req, res) => {
+
+    /*
+            #swagger.tags = ["Like"]
+            #swagger.summary = "Like or Remove Like Blog"
+    */
+
     const data = await Blog.findOne({ _id: req.params.id });
 
     const islikedBefore = data.likes.includes(req?.user?._id.toString());

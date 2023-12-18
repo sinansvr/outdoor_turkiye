@@ -1,5 +1,5 @@
 {
-  "title":"OutDoor Turkiye",
+  "title": "OutDoor Turkiye",
   "name": "backend",
   "version": "1.0.0",
   "description": "OutDoor Turkiye Blog API",
@@ -18,7 +18,9 @@
     "express-async-errors": "^3.1.1",
     "mongoose": "^8.0.1",
     "morgan": "^1.10.0",
+    "redoc-express": "^2.1.0",
     "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.0",
     "validator": "^13.11.0"
   }
 }

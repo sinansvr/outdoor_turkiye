@@ -28,7 +28,14 @@ const document = {
         "Simple Token Authentication * Example: <b>Token ...tokenKey...</b>",
     },
   },
-  security: [{ Token: [] }]
+  security: [{ Token: [] }],
+	definition: {
+		// Models:
+		"User": require('./src/models/user').schema.obj,
+		"Category": require('./src/models/category').schema.obj,
+		"Blog": require('./src/models/blog').schema.obj,
+		
+	}
 
 };
 

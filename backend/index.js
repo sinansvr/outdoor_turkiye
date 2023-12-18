@@ -46,6 +46,11 @@ app.use(require("./src/routes"))
 //Middlewares
 app.use(require("./src/middlewares/findSearchSortPage"))
 
+//Documentation Swagger and Redoc
+const swaggerUI=require("swagger-ui-express");
+const swaggerJson=require("./src/configs/swagger.json")
+
+app.use("/docs/swagger", swaggerUI.serve, swaggerUI.setup(swaggerJson))
 
 //errorHandler
 app.use(require("./src/middlewares/errorHandler"))
