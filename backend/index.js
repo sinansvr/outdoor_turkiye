@@ -26,6 +26,9 @@ app.use(express.json())
 //Find/Pagination
 app.use(require('./src/middlewares/findSearchSortPage'))
 
+//CORS
+app.use(require('cors')())
+
 
 //Home Page
 app.all("/",(req,res)=>{
@@ -47,10 +50,23 @@ app.use(require("./src/routes"))
 app.use(require("./src/middlewares/findSearchSortPage"))
 
 //Documentation Swagger and Redoc
+
+// Swagger
 const swaggerUI=require("swagger-ui-express");
 const swaggerJson=require("./src/configs/swagger.json")
 
 app.use("/docs/swagger", swaggerUI.serve, swaggerUI.setup(swaggerJson))
+
+//Redoc
+const redoc = require('redoc-express')
+app.use('/docs/json', (req, res) => {
+    res.sendFile('swagger.json', { root: '.' })
+})
+app.use('/docs/redoc', redoc({
+    specUrl: '/docs/json',
+    title: 'API Docs',
+   
+}))
 
 //errorHandler
 app.use(require("./src/middlewares/errorHandler"))
