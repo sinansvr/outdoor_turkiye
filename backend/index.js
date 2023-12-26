@@ -31,13 +31,18 @@ app.use(require('cors')())
 
 
 //Home Page
-app.all("/",(req,res)=>{
 
+app.all('/', (req, res) => {
     res.send({
-        error:false,
-        message:"Welcome to OutDoor Türkiye API!"
+        error: false,
+        message: 'Welcome to  OutDoor Türkiye API!',
+        documents: {
+            swagger: '/documents/swagger',
+            redoc: '/documents/redoc',
+            json: '/documents/json',
+        },
+        user: req.user
     })
-
 })
 
 //Authentication
