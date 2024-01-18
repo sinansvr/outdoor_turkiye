@@ -43,7 +43,7 @@ module.exports = {
     */
 
     //disallow to be admin
-    // req.body.isAdmin = false
+    req.body.isAdmin = false
 
     //create new user
     const data = await User.create(req.body);
@@ -100,7 +100,7 @@ module.exports = {
       filters={_id: req.user._id}
 
       //disallow to be admin
-      req.body.isAdmin=false;
+      // req.body.isAdmin=false;
     }    
 
     const data = await User.updateOne({ _id: req.params.id, ...filters }, req.body, {
