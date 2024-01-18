@@ -14,4 +14,7 @@ router.use("/categories",require("./category"))
 //blogs
 router.use("/blogs",require("./blog"))
 
+//documents
+router.use("/documents",require("./document"))
+
 module.exports= router;
