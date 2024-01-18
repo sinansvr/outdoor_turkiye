@@ -17,7 +17,7 @@ const {dbConnection} = require("./src/configs/dbConnection")
 dbConnection()
 
 //Logging
-app.use(require("./src/middlewares/logger"))
+// app.use(require("./src/middlewares/logger"))
 
 //JSON data
 app.use(express.json())

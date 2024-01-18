@@ -1,6 +1,6 @@
 const morgan= require("morgan")
 
-const fs=require("node:fs")
+const fs=require("fs")
 
 //create today log file
 const today = new Date().toISOString().split("T")[0]
