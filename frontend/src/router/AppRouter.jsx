@@ -9,12 +9,19 @@ import PrivateRouter from './PrivateRouter'
 import Profile from '../pages/Profile'
 import BlogDetail from '../pages/BlogDetail'
 import NewBlog from '../pages/NewBlog'
+import { Container, CssBaseline, Grid } from '@mui/material'
+import NewsBar from '../components/NewsBar'
 
 
 const AppRouter = () => {
   return (
     <>
-      <AppBar />
+    <CssBaseline />
+    <AppBar />
+    <Container maxWidth={'xl'}>
+    <Grid container>
+      
+      <Grid item xs={8}>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -29,7 +36,15 @@ const AppRouter = () => {
           </Route>
         </Routes>
       </Router>
+      </Grid>
+      <Grid item xs={4} sx={{backgroundColor:"red"}}>
+        <NewsBar/>
+      </Grid>
+      
+    </Grid>
+    </Container>
     </>
+    
   )
 }
 
