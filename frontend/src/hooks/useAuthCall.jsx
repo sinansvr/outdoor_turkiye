@@ -23,7 +23,15 @@ const login =async (userData)=>{
     }
 }
 
-  return {login}
+const logout= async () =>{
+
+}
+
+const register = async () =>{
+
+}
+
+  return {login, logout, register}
 }
 
 export default useAuthCall

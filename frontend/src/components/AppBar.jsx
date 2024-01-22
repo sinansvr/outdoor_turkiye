@@ -13,15 +13,31 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Grid } from '@mui/material';
-// import { NavLink} from 'react-router-dom';
+// import { Link} from 'react-router-dom';
 import Link from '@mui/material/Link'
+import BadgeAvatar from './BadgeAvatar';
 
-const pages = [{ id: 1, title: "Home", url: "/" }, { id: 2, title: "Blogs", url: "/blogs" }, { id: 3, title: "New Blog", url: "/newblog" }];
-const settings = [{ id: 1, title: "Profile", url: "profile" }, { id: 2, title: "My Blogs", url: "blogs" }, { id: 3, title: "Logout", url: "logout" }];
+const pages = [
+  { id: 1, title: "Home", url: "/" },
+  { id: 2, title: "Blogs", url: "/blogs" },
+  { id: 3, title: "New Blog", url: "/newblog" }];
+
+const LoggedInSettings = [
+  { id: 1, title: "Profile", url: "profile" },
+  { id: 2, title: "My Blogs", url: "blogs" },
+  { id: 3, title: "Logout", url: "logout" }];
+
+const LoggedOutSettings = [
+    { id: 1, title: "Login", url: "login" },
+  ];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  let token = true
+
+  let settings = token ? LoggedInSettings : LoggedOutSettings;
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -95,9 +111,9 @@ function ResponsiveAppBar() {
                   {pages.map((page) => (
                     <MenuItem key={page.id} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">
-                        {/* <Link to={page.title} style={{ textDecoration: 'none', color: 'inherit' }}> */}
+                        <Link href={page.title} style={{ textDecoration: 'none', color: 'inherit' }}>
                           {page.title}
-                        {/* </Link> */}
+                        </Link>
                       </Typography>
                       
                     </MenuItem>
@@ -120,7 +136,7 @@ function ResponsiveAppBar() {
                   color: 'inherit',
                   textDecoration: 'none',
                 }}
-              >
+                >
                 LOGO
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -133,13 +149,14 @@ function ResponsiveAppBar() {
                     {page.title}
                   </Button>
                 ))}
-                <Link href={"/hello"} sx={{color:"red"}}>Hello</Link>
-              </Box>
+                </Box>
 
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+
+                    {token ? <BadgeAvatar/> : <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />}
+                    {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
                   </IconButton>
                 </Tooltip>
                 <Menu
