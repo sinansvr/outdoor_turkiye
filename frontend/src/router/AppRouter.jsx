@@ -16,14 +16,14 @@ import Footer from '../components/Footer'
 
 const AppRouter = () => {
   return (
-    <>
+    <Router>
       <CssBaseline />
       <AppBar />
       <Container maxWidth={'xl'}>
         <Grid container>
 
           <Grid item xs={8}>
-            <Router>
+            
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path='/about' element={<About />} />
@@ -36,7 +36,7 @@ const AppRouter = () => {
                   <Route path='/newblog' element={<NewBlog />} />
                 </Route>
               </Routes>
-            </Router>
+            
           </Grid>
           <Grid item xs={4} sx={{ backgroundColor: "red" }}>
             <NewsBar />
@@ -45,7 +45,7 @@ const AppRouter = () => {
         </Grid>
       </Container>
       <Footer />
-    </>
+    </Router>
 
   )
 }
