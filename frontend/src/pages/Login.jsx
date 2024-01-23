@@ -75,6 +75,7 @@ export default function SignInSide() {
               login(values)
               action.resetForm()
               action.setSubmitting(false)
+              navigate(-1)
             }}
           >
             {({ handleChange, handleBlur, values, touched, errors }) => (

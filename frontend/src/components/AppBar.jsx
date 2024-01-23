@@ -14,6 +14,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Grid } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 import BadgeAvatar from './BadgeAvatar';
+import { useSelector } from "react-redux";
 
 
 
@@ -23,8 +24,8 @@ const pages = [
   { id: 3, title: "New Blog", url: "/newblog" }];
 
 const settings = [
-  { id: 1, title: "Profile", url: "profile" },
-  { id: 2, title: "My Blogs", url: "blogs" },
+  { id: 1, title: "Profile", url: "/profile" },
+  { id: 2, title: "My Blogs", url: "/myblogs" },
   { id: 3, title: "Logout", url: "logout" }];
 
 
@@ -34,8 +35,8 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const navigate = useNavigate();
-
-  let token = false
+  let {token} = useSelector((state)=>state.auth)
+  
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -178,8 +179,14 @@ function ResponsiveAppBar() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting.title}</Typography>
+                    <MenuItem key={setting.id} onClick={handleCloseUserMenu} >
+                      
+                        <Typography  textAlign="center">
+                          {setting.title === "Logout" ? <NavLink></NavLink> :}
+                          <NavLink to={setting.url} style={{textDecoration:"none", color:'black'}}>{setting.title}</NavLink>
+                        </Typography>
+                      
+                      
                     </MenuItem>
                   ))}
                 </Menu>}
@@ -200,7 +207,7 @@ export default ResponsiveAppBar;
 //     <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
 //       <Typography textAlign="center">
 
-//         {setting.title === 'Logout' ? <NavLink onClick={() => logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink>
+        {setting.title === 'Logout' ? <NavLink onClick={() => logout()} to={setting.url} > {setting.title}</NavLink>
 //         :
 //           <NavLink onClick={() => setting.title === 'Logout' && logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink>}
 

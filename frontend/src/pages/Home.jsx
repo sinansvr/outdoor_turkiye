@@ -3,7 +3,7 @@ import NewsBar from "../components/NewsBar"
 
 const Home = () => {
   return (
-    <Grid container>
+    <Grid container >
       <Grid item xs={8} sx={{backgroundColor:"#bebe", minHeight:"100vh"}}>
         Home
       </Grid>

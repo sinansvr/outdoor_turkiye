@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
-import { fetchFail, fetchStart, loginSuccess } from "../features/AuthSlice"
+import { fetchFail, fetchStart, loginSuccess,logoutSuccess } from "../features/AuthSlice"
 import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
@@ -26,21 +26,21 @@ const useAuthCall = () => {
     }
   }
   
-  const logout = async (userData) => {
+  const logout = async () => {
 
     dispatch(fetchStart())
 
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}` + "users/login", userData);
-      dispatch(loginSuccess(data));
-      navigate(-1)
-      toastSuccessNotify('Successfuly logged in!')
+      await axios.post(`${import.meta.env.VITE_BASE_URL}` + "users/logout");
+      dispatch(logoutSuccess());
+      navigate("/")
+      toastSuccessNotify('Successfuly logged out!')
 
     } catch (error) {
 
       console.log(error)
       dispatch(fetchFail())
-      toastErrorNotify("User credentials are not correct!")
+      toastErrorNotify("You could not Logout. Something went wrong.")
     }
   } 
 
