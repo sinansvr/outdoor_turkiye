@@ -7,15 +7,14 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Grid } from '@mui/material';
-import { Link} from 'react-router-dom';
-// import Link from '@mui/material/Link'
+import { NavLink} from 'react-router-dom';
 import BadgeAvatar from './BadgeAvatar';
+import BasicButtons from './Button';
 
 const pages = [
   { id: 1, title: "Home", url: "/" },
@@ -35,7 +34,7 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  let token = true
+  let token = false
 
   let settings = token ? LoggedInSettings : LoggedOutSettings;
 
@@ -111,9 +110,9 @@ function ResponsiveAppBar() {
                   {pages.map((page) => (
                     <MenuItem key={page.id} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">
-                        <Link to={page.title} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <NavLink to={page.title} style={{ textDecoration: 'none', color: 'inherit' }}>
                           {page.title}
-                        </Link>
+                        </NavLink>
                       </Typography>
 
                     </MenuItem>
@@ -155,7 +154,7 @@ function ResponsiveAppBar() {
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 
-                    {token ? <BadgeAvatar /> : <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />}
+                    {token ? <BadgeAvatar /> : <BasicButtons/>}
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -195,8 +194,11 @@ export default ResponsiveAppBar;
 //   settings.map((setting) => (
 //     <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
 //       <Typography textAlign="center">
-//         {setting.title === 'Logout' ? <NavLink onClick={() => logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink> :
+
+//         {setting.title === 'Logout' ? <NavLink onClick={() => logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink> 
+//         :
 //           <NavLink onClick={() => setting.title === 'Logout' && logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink>}
+
 //       </Typography>
 //     </MenuItem>
 //   ))
