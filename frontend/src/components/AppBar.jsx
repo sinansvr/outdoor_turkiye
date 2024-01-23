@@ -161,9 +161,6 @@ function ResponsiveAppBar() {
 
                 </Tooltip>
 
-
-
-
                 {token && <Menu
                   sx={{ mt: '45px' }}
                   id="menu-appbar"
