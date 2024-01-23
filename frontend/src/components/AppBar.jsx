@@ -12,31 +12,30 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Grid } from '@mui/material';
-import { NavLink} from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import BadgeAvatar from './BadgeAvatar';
-import BasicButtons from './Button';
+
+
 
 const pages = [
   { id: 1, title: "Home", url: "/" },
   { id: 2, title: "Blogs", url: "/blogs" },
   { id: 3, title: "New Blog", url: "/newblog" }];
 
-const LoggedInSettings = [
+const settings = [
   { id: 1, title: "Profile", url: "profile" },
   { id: 2, title: "My Blogs", url: "blogs" },
   { id: 3, title: "Logout", url: "logout" }];
 
-const LoggedOutSettings = [
-  { id: 1, title: "Login", url: "login" },
-];
+
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  let token = false
+  const navigate = useNavigate();
 
-  let settings = token ? LoggedInSettings : LoggedOutSettings;
+  let token = false
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -110,7 +109,7 @@ function ResponsiveAppBar() {
                   {pages.map((page) => (
                     <MenuItem key={page.id} onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">
-                        <NavLink to={page.title} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <NavLink to={page.url} style={{ textDecoration: 'none', color: 'inherit' }}>
                           {page.title}
                         </NavLink>
                       </Typography>
@@ -145,19 +144,27 @@ function ResponsiveAppBar() {
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
-                    {page.title}
+                    <NavLink style={{ textDecoration: "none", color: "white", letterSpacing: "0.1rem" }} to={page.url}>
+                      {page.title}
+                    </NavLink>
+
                   </Button>
                 ))}
               </Box>
 
               <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Tooltip >
 
-                    {token ? <BadgeAvatar /> : <BasicButtons/>}
+                  <IconButton onClick={token ? handleOpenUserMenu : () => navigate("/login")} sx={{ p: 0 }}>
+                    {token ? <BadgeAvatar /> : <Typography sx={{color:"white", backgroundColor:"green", px:2, py:1, borderRadius:3, cursor:"pointer", "&:hover":{transform:"scale(0.9)"},transition: "transform 0.3s"}} variant='button'>Get Start</Typography>}
                   </IconButton>
+
                 </Tooltip>
-                <Menu
+
+
+
+
+                {token && <Menu
                   sx={{ mt: '45px' }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
@@ -178,7 +185,8 @@ function ResponsiveAppBar() {
                       <Typography textAlign="center">{setting.title}</Typography>
                     </MenuItem>
                   ))}
-                </Menu>
+                </Menu>}
+
               </Box>
             </Toolbar>
           </Container>
@@ -195,7 +203,7 @@ export default ResponsiveAppBar;
 //     <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
 //       <Typography textAlign="center">
 
-//         {setting.title === 'Logout' ? <NavLink onClick={() => logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink> 
+//         {setting.title === 'Logout' ? <NavLink onClick={() => logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink>
 //         :
 //           <NavLink onClick={() => setting.title === 'Logout' && logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink>}
 
