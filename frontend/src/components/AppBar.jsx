@@ -15,6 +15,7 @@ import { Grid } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 import BadgeAvatar from './BadgeAvatar';
 import { useSelector } from "react-redux";
+import useAuthCall from "../hooks/useAuthCall"
 
 
 
@@ -36,6 +37,7 @@ function ResponsiveAppBar() {
 
   const navigate = useNavigate();
   let {token} = useSelector((state)=>state.auth)
+  const {logout} = useAuthCall()
   
 
   const handleOpenNavMenu = (event) => {
@@ -181,9 +183,10 @@ function ResponsiveAppBar() {
                   {settings.map((setting) => (
                     <MenuItem key={setting.id} onClick={handleCloseUserMenu} >
                       
-                        <Typography  textAlign="center">
-                          {setting.title === "Logout" ? <NavLink></NavLink> :}
-                          <NavLink to={setting.url} style={{textDecoration:"none", color:'black'}}>{setting.title}</NavLink>
+                        <Typography  textAlign="center">                         
+                          
+                          <NavLink onClick={()=>setting.title === "Logout" && logout()} to={setting.url} style={{textDecoration:"none", color:'black'}}>{setting.title}</NavLink>
+                          
                         </Typography>
                       
                       
@@ -207,7 +210,7 @@ export default ResponsiveAppBar;
 //     <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
 //       <Typography textAlign="center">
 
-        {setting.title === 'Logout' ? <NavLink onClick={() => logout()} to={setting.url} > {setting.title}</NavLink>
+        // {setting.title === 'Logout' ? <NavLink onClick={() => logout()} to={setting.url} > {setting.title}</NavLink>
 //         :
 //           <NavLink onClick={() => setting.title === 'Logout' && logout()} style={({ isActive }) => ({ color: isActive ? "rgb(255, 47, 47)" : 'black', textDecoration: 'none' })} to={setting.url} > {setting.title}</NavLink>}
 
