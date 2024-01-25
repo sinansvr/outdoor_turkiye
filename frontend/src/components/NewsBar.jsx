@@ -30,7 +30,7 @@ const NewsBar = () => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button onClick={} size="small">Learn More</Button>
+            <Button onClick={()=>{window.open(article.url,"_blank")}} size="small">Learn More</Button>
           </CardActions>
         </Card>
       ))}

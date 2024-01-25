@@ -1,26 +1,26 @@
 import { useDispatch } from "react-redux"
 import useAxios from "./useAxios"
-import { fetchFail, fetchStart } from "../features/BlogSlice"
+import { fetchFail, fetchStart, getBlogDetailLikeSuccess } from "../features/BlogSlice"
 
 
 const useBlogCall = () => {
-  const {axiosWithToken,axiosPublic} = useAxios()
-  const dispatch = useDispatch()
+    const { axiosWithToken, axiosPublic } = useAxios()
+    const dispatch = useDispatch()
 
-const getBlogs = async () => {
-    dispatch(fetchStart())
-    try {
-        await axiosPublic('/blogs')
-        dispatch()
-    } catch (error) {
-        console.log(error)
-        dispatch(fetchFail())
+    const getBlogs = async (url) => {
+        dispatch(fetchStart())
+        try {
+            const { data } = await axiosPublic('/blogs')
+            dispatch(getBlogDetailLikeSuccess({ url, data }))
+        } catch (error) {
+            console.log(error)
+            dispatch(fetchFail())
+        }
+
+
     }
 
-
-}
-  
-    return (getBlogs )
+    return (getBlogs)
 }
 
 export default useBlogCall

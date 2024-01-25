@@ -1,7 +1,21 @@
+import { Grid } from "@mui/material"
+import BlogsCard from "../components/BlogsCard"
+import { useEffect } from "react"
+import useBlogCall from "../hooks/useBlogCall"
 
 const Blogs = () => {
+
+  const { getBlogs } = useBlogCall()
+  useEffect(() => {
+    getBlogs("blogs")
+
+  }, [])
+
+
   return (
-    <div>Blogs</div>
+    <Grid container>
+      <Grid item><BlogsCard /></Grid>
+    </Grid>
   )
 }
 
