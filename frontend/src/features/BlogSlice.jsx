@@ -33,6 +33,6 @@ export const blogSlice = createSlice({
     }
 });
 
-export const { getBlogs} = blogSlice.actions;
+export const { getBlogDetailLikeSuccess,fetchStart,fetchFail} = blogSlice.actions;
 
 export default blogSlice.reducer;
