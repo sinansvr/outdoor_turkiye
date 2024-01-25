@@ -2,7 +2,8 @@ import { Grid } from "@mui/material"
 import NewsBar from "../components/NewsBar"
 import BlogsCard from "../components/BlogsCard"
 
-const Home = () => {
+const Home = () => { 
+
   return (
     <Grid container >
       <Grid container item  justifyContent="center" alignItems="center" xs={8} columnSpacing={2} rowSpacing={1} sx={{backgroundColor:"#bebe", minHeight:"100vh"}}>
