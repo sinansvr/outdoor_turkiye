@@ -6,6 +6,7 @@ import useBlogCall from "../hooks/useBlogCall"
 const Blogs = () => {
 
   const { getBlogs } = useBlogCall()
+  
   useEffect(() => {
     getBlogs("blogs")
 
